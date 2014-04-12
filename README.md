@@ -63,7 +63,11 @@ stops listening :
 
 ### `observable#fire(type[, data…])`
 
-fires the given `type` event, passing the `data…` arguments to the listeners.
+fires asynchronously the given `type` event, passing the `data…` arguments to the listeners.
+
+### `observable#fireSync(type[, data])`
+
+fires synchronously the given `type` event, passing the `data…` arguments to the listeners.
 
 ## events
 

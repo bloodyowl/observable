@@ -1,0 +1,64 @@
+{
+  "name": "bloody-observable",
+  "version": "0.0.0",
+  "description": "Observable `Object` and `Array`.",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/**.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bloodyowl/observable.git"
+  },
+  "author": "bloodyowl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bloodyowl/observable/issues"
+  },
+  "homepage": "https://github.com/bloodyowl/observable",
+  "devDependencies": {
+    "tape": "^2.12.3"
+  },
+  "dependencies": {
+    "bloody-events": "^0.2.0"
+  },
+  "testling": {
+    "files": "test/**.js",
+    "browsers": {
+      "ie": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "firefox": [
+        22,
+        23,
+        24,
+        25
+      ],
+      "chrome": [
+        28,
+        29,
+        30,
+        31
+      ],
+      "safari": [
+        4,
+        5.1,
+        6
+      ],
+      "opera": [
+        10,
+        11,
+        12
+      ],
+      "iphone": [
+        6
+      ],
+      "ipad": [
+        6
+      ]
+    }
+  }
+}

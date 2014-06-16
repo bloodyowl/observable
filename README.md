@@ -19,41 +19,46 @@ var observable = require("bloody-observable")
 
 ## api
 
-### `observable.extend(object) > subclass`
+### `observable.extend(options) > subclass`
 
 creates an observable subclass.
 
-### `observable.create([data={}]) > instance`
+#### `options.getDefaults`
+
+function that returns the default value for `data`, will be merged with
+the data. default `getDefaults` returns an empty object.
+
+### `observable.create([data={}]) > o`
 
 creates a new observable instance.
 optionally takes a `data` argument (which, if set, must be an object).
 if not set, `data` is a new empty `object`.
 
-### `observable#get(key)`
+### `o.get(key)`
 
 returns the value for `key`.
 
-### `observable#set(key, value)`
+### `o.set({key: value, key2: value2 …})`
 
 sets `value` as value for `key`.
 
-### `observable#remove(key)`
+### `o.remove(key)`
 
 removes the value for `key`
 
-### `observable#toString()`
+### `o.toString()`
 
 returns the JSON string of the observable data.
 
-### `observable#valueOf()`
+### `o.valueOf()`
 
 returns the observable data.
 
-### `observable#listen(type, listener)`
+### `o.on(type, listener)`
 
 listens the the `type` event and attaches `listener` to it.
 
-### `observable#stopListening([type[, listener]])`
+### `o.off([type[, listener]])`
 
 stops listening :
 
@@ -61,13 +66,18 @@ stops listening :
 - if `type` is set : all `type` events
 - if `type` and `listener` are set : the `listener` for this `type`
 
-### `observable#fire(type[, data…])`
-
-fires asynchronously the given `type` event, passing the `data…` arguments to the listeners.
-
-### `observable#fireSync(type[, data])`
+### `o.emit(type[, data…])`
 
 fires synchronously the given `type` event, passing the `data…` arguments to the listeners.
+
+### `o.dispatch(cb)`
+
+creates a dispatches that, for each change in the current call-stack, notifies
+`cb(changes)` with an object containing all new changes.
+
+### `o.stopDispatch([cb])`
+
+stops dispatching to `cb` if set, otherwise removes all dispatches.
 
 ## events
 
@@ -76,3 +86,36 @@ fires synchronously the given `type` event, passing the `data…` arguments to t
 * `remove` : when the change is an deletion
 
 **NOTE** : changes are fired by the `.set` and `.remove` methods.
+
+## example
+
+```javascript
+var observable = require("bloody-observable")
+var status = observable
+  .extend({
+    getDefaults : function(){
+      return {
+        status : null,
+        label : "yo"
+      }
+    }
+  })
+  .create({
+    status : 1
+  })
+status.on("change", function(changes){
+  ui.update({
+    status : changes.value
+  })
+})
+status.dispatch(function(){
+
+})
+request.post("connect/", data)
+  .then(function(xhr){
+    status.set("status", JSON.parse(xhr.responseText).status)
+  })
+  .catch(function(){
+    status.set("status", 0)
+  })
+```

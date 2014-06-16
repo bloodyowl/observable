@@ -1,7 +1,7 @@
 {
   "name": "bloody-observable",
-  "version": "0.0.0",
-  "description": "Observable `Object` and `Array`.",
+  "version": "1.0.0",
+  "description": "Observable `Object`",
   "main": "index.js",
   "scripts": {
     "test": "tape test/**.js"
@@ -20,7 +20,8 @@
     "tape": "^2.12.3"
   },
   "dependencies": {
-    "bloody-events": "^0.2.0"
+    "asap": "^1.0.0",
+    "bloody-events": "^1.1.0"
   },
   "testling": {
     "files": "test/**.js",
